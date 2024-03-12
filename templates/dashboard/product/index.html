@@ -1,0 +1,50 @@
+{% extends 'layouts/dashboard.html' %}
+{% load humanize %}
+
+{% block pageContent %}
+    <div class="max-w-screen-lg space-y-5">
+        <div class="flex items-center justify-between">
+            <h1 class="text-3xl">Products</h1>
+            <a href="{% url 'new_product' %}" class="px-5 py-3 rounded-lg bg-blue-500">+ New</a>
+        </div>
+
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                            Product Name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Quantity
+                        </th>
+                        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                            Description
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr class="border-b border-gray-200 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                            {{ product.name }}
+                        </th>
+                        <td class="px-6 py-4">{{ product.quantity }}</td>
+                        <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">{{ product.description|slice:10 }}...</td>
+                        <td class="px-6 py-4 space-x-3">
+                            <a href="#" class="text-blue-700">Edit</a>
+                            <a href="#" class="text-red-700">Delete</a>
+                        </td>
+                    </tr>
+                    {% empty %}          
+                        <td class="px-6 py-4">No Products added yet...</td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}

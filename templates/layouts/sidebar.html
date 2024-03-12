@@ -1,0 +1,61 @@
+<div class="sidebar">
+   <button type="button" class="menu-icon">
+      <span class="sr-only">Open sidebar</span>
+      <span>menu</span>
+   </button>
+
+   <aside class="aside">
+      <div class="wrapper">
+         <ul class="menu">
+            <li>
+               <a href="#" class="link">
+                  <span class="ms-3">Dashboard</span>
+               </a>
+            </li>
+            <li x-data="{open:false}" class="dropdown">
+               <button type="button" @click="open=!open">
+                  <span>Customers</span>
+               </button>
+               <ul x-show="open">
+                  <li> <a href="{% url 'customers' %}">All Customers</a> </li>
+                  <li> <a href="{% url 'new_customer' %}" >Add Customer</a> </li>
+               </ul>
+            </li>
+            <li x-data="{open:false}" class="dropdown">
+               <button type="button" @click="open=!open">
+                  <span>Products</span>
+               </button>
+               <ul x-show="open" class="px-2">
+                  <li> <a href="{% url 'products' %}" >All Products</a> </li>
+                  <li> <a href="{% url 'new_product' %}">New Product</a> </li>
+               </ul>
+            </li>
+            <li>
+               <a href="#">
+                  <span>Inbox</span>
+               </a>
+            </li>
+            <li>
+               <a href="#">
+                  <span>Users</span>
+               </a>
+            </li>
+            <li>
+               <a href="#">
+                  <span>Products</span>
+               </a>
+            </li>
+            <li>
+               <a href="#">
+                  <span>Sign In</span>
+               </a>
+            </li>
+            <li>
+               <a href="#">
+                  <span>Sign Up</span>
+               </a>
+            </li>
+         </ul>
+      </div>
+   </aside>
+</div>

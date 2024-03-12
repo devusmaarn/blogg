@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="">
+        {% include 'layouts/sidebar.html' %}
+        <div class="p-5 sm:ml-64 w-full">
+            {% block pageContent %}
+            {% endblock %}
+        </div>
+    </section>
+{% endblock %}

@@ -19,7 +19,6 @@ class Transaction(CommonInfo):
     amount = models.IntegerField()
     
 
-
 class Customer(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
@@ -31,7 +30,7 @@ class Customer(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=255, unique=True)
     quantity = models.IntegerField()
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=500, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
 
