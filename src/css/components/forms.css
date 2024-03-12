@@ -1,0 +1,10 @@
+form{
+    input{
+        @apply p-3 w-full rounded-lg border;
+    }
+
+    .errorlist{
+        @apply p-2 list-disc list-inside rounded border-red-700 text-red-700;
+    }
+
+}

@@ -15,6 +15,7 @@ DEBUG = bool(os.getenv("DEBUG", default=0))
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS").split(" ")
 
+# LOGIN_URL
 
 # Application definition
 
@@ -27,7 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     
-    'blog.apps.BlogConfig',
+    'blog',
 ]
 
 STATIC_URL = 'static/'

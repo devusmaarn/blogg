@@ -1,5 +1,6 @@
 
 @import "./layouts/navbar.css";
+@import "./components/forms.css";
 
 @tailwind base;
 @tailwind components;

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="max-w-xl mx-auto my-5 bg-white rounded shadow p-5">
+        <h1 class="capitalize text-2xl mb-5">{{ page }}</h1>
+        {% if page == 'login' %}
+            <form action="" method="post" class="space-y-5">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <div class="py-1">
+                    <label for="{{ form.username.id_for_label }}" class="uppercase tracking-wider text-zinc-500">{{ field.label }}</label>
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+                {% endfor %}
+                
+
+                <button type="submit" class="px-5 py-3 rounded-lg bg-blue-500 text-blue-50">Login</button>
+            </form>
+        {% endif %}
+
+    </div>
+{% endblock %}
