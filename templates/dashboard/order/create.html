@@ -1,0 +1,74 @@
+{% extends 'layouts/dashboard.html' %}
+
+{% block pageContent %}
+<div class="max-w-xl my-5">
+    <h3 class="text-xl font-semibold mb-5">New Order</h3>
+    <form action="" method="post" x-data="{
+        quantity: 0, discount: 0, price: 0, total: 0,
+        handleChange(e){
+            fetch('/api/products/'+e.target.value)
+                .then(res => res.json())
+                .then(res => {
+                    this.price = res.amount
+                });
+        },
+        init(){
+            $watch('quantity', value => this.total = (this.price - this.discount) * value)
+            $watch('discount', value => this.total = (this.price - value) * this.quantity)
+            $watch('price', value => this.total = (value - this.discount) * this.quantity)
+        },
+    }">
+        {% csrf_token %}
+        <div class="mb-5">
+            <label for="customer">{{ form.customer.label }}</label>
+            <select name="customer" id="customer">
+                <option disabled selected>----------</option>
+                {% for id, name in form.customer.field.choices %}
+                    <option value="{{id}}">{{ name }}</option>
+                {% endfor %}
+            </select>
+            {{ form.customer.errors }}
+        </div>
+
+        <div class="mb-5">
+            <label for="product">{{ form.product.label }}</label>
+            <select name="product" id="product" @change="handleChange">
+                <option disabled selected>----------</option>
+                {% for id, name in form.product.field.choices %}
+                    <option value="{{id}}">{{ name }}</option>
+                {% endfor %}
+            </select>
+            {{ form.product.errors }}
+        </div>
+
+        <div class="mb-5">
+            <label for="quantity">Quantity</label>
+            <input id="quantity" type="number" name="quantity" x-model="quantity">
+            {{ form.quantity.errors }}
+        </div>
+
+        <div class="mb-5">
+            <label for="price">Product Price</label>
+            <input id="price" type="number" disabled x-model="price">
+        </div>
+
+        <div class="mb-5">
+            <label for="discount">Discount Per Item</label>
+            <input id="discount" type="number" name="discount" x-model="discount">
+            {{ form.discount.errors }}
+        </div>
+
+        <div class="mb-5">
+            <label for="total">Total</label>
+            <input id="total" type="number" name="total" x-bind:value="total" readonly>
+        </div>
+
+        <div class="flex items-center gap-3 mb-5">
+            {{ form.supplied }}
+            <label for="supplied">Supplied</label>
+        </div>
+
+        <button type="submit" class="bg-blue-700">Add Order</button>
+    </form>
+</div>
+{% endblock %}

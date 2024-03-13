@@ -7,7 +7,7 @@ class CommonInfo(models.Model):
     user =  models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    deleted = models.DateField(auto_now=True)
+    deleted = models.DateField(null=True, blank=True)
     
     class Meta:
         abstract = True
@@ -26,12 +26,22 @@ class Customer(models.Model):
     phone_number = models.CharField(max_length=11, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     
+    def __str__(self) -> str:
+        return self.name
+    
     
 class Product(models.Model):
     name = models.CharField(max_length=255, unique=True)
     quantity = models.IntegerField()
-    description = models.TextField(max_length=500, null=True)
+    amount = models.IntegerField(null=True)
+    description = models.TextField(max_length=500, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self) -> str:
+        return self.name
+    
+    class Meta:
+        pass
 
 
 class Order(CommonInfo):
@@ -39,10 +49,13 @@ class Order(CommonInfo):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
     quantity = models.IntegerField()
     discount = models.FloatField()
+    total = models.IntegerField(null = True)
+    supplied = models.BooleanField(default=False)
 
 
 class Receipt(CommonInfo):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, blank=True)
     amount = models.IntegerField()
     description = models.CharField(max_length=255)
 
@@ -56,7 +69,6 @@ class Employee(models.Model):
         "AC": "Accountant",
         "MKT": "Marketer"
     }
-    
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
     phone_number = models.CharField(max_length=11)
@@ -78,5 +90,3 @@ class Board(models.Model):
 
 class Company(models.Model):
     balance = models.IntegerField(default=0)
-
-

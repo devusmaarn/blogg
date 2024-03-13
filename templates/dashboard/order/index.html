@@ -4,8 +4,8 @@
 {% block pageContent %}
     <div class="max-w-screen-lg space-y-5">
         <div class="flex items-center justify-between">
-            <h1 class="text-3xl">Products</h1>
-            <a href="{% url 'new_product' %}" class="px-5 py-3 rounded-lg bg-blue-500">+ New</a>
+            <h1 class="text-3xl">Orders</h1>
+            <a href="{% url 'new_order' %}" class="px-5 py-3 rounded-lg bg-blue-500">+ New</a>
         </div>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -13,13 +13,22 @@
                 <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
-                            Product Name
+                            Customer
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Product
+                        </th>
+                        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                             Quantity
                         </th>
                         <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
-                            Description
+                            Price
+                        </th>
+                        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                            Discount
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Total
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -27,22 +36,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for product in products %}
+                    {% for order in orders %}
                     <tr class="border-b border-gray-200 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                            {{ product.name }}
+                            {{ order.customer|default:"Anonymous" }}
                         </th>
-                        <td class="px-6 py-4">{{ product.quantity|floatformat:"g" }}</td>
+                        <td class="px-6 py-4">{{ order.product }}</td>
                         <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                            {{ product.description|truncatewords:5|default:"NILL" }}
+                            {{ order.quantity|floatformat:"g" }}
+                        </td>
+                        <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                            {{ order.product.amount }}
+                        </td>
+                        <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                            {{ order.discount|floatformat:"g" }}
+                        </td>
+                        <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                            {{ order.total|floatformat:"g" }}
                         </td>
                         <td class="px-6 py-4 space-x-3">
                             <a href="#" class="text-blue-700">Edit</a>
-                            <a href="{% url 'delete_product' product.id %}" class="text-red-700">Delete</a>
+                            <a href="{% url 'delete_order' order.id %}" class="text-red-700">Delete</a>
                         </td>
                     </tr>
                     {% empty %}          
-                        <td class="px-6 py-4">No Products added yet...</td>
+                        <td class="px-6 py-4">No orders added yet...</td>
                     {% endfor %}
                 </tbody>
             </table>

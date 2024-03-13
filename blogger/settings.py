@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     
     'blog',
+    "api",
+    "rest_framework",
 ]
 
 STATIC_URL = 'static/'

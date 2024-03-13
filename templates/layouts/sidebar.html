@@ -30,20 +30,14 @@
                   <li> <a href="{% url 'new_product' %}">New Product</a> </li>
                </ul>
             </li>
-            <li>
-               <a href="#">
-                  <span>Inbox</span>
-               </a>
-            </li>
-            <li>
-               <a href="#">
-                  <span>Users</span>
-               </a>
-            </li>
-            <li>
-               <a href="#">
-                  <span>Products</span>
-               </a>
+            <li x-data="{open:false}" class="dropdown">
+               <button type="button" @click="open=!open">
+                  <span>Orders</span>
+               </button>
+               <ul x-show="open" class="px-2">
+                  <li> <a href="{% url 'orders' %}" >All Orders</a> </li>
+                  <li> <a href="{% url 'new_order' %}">New Order</a> </li>
+               </ul>
             </li>
             <li>
                <a href="#">
